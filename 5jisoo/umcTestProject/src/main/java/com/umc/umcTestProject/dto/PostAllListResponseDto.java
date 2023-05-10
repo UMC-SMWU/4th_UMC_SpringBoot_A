@@ -1,10 +1,11 @@
 package com.umc.umcTestProject.dto;
 
-import com.umc.umcTestProject.domain.Post;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class PostAllListResponseDto {
     private int countPost;
     private List<PostResponseDto> posts;

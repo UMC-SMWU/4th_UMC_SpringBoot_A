@@ -2,7 +2,9 @@ package com.umc.umcTestProject.dto;
 
 import com.umc.umcTestProject.domain.Post;
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class PostCreateRequestDto {
     private String title;
     private String content;
