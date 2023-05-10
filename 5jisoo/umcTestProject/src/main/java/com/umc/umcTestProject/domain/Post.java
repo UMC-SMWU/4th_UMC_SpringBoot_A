@@ -26,6 +26,11 @@ public class Post {
         this.content = content;
     }
 
+    /**
+     * update Post
+     * @param title
+     * @param content
+     */
     public void update(String title, String content) {
         this.title = title;
         this.content = content;

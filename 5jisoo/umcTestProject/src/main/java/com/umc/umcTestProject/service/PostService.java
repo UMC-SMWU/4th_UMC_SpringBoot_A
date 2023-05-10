@@ -1,6 +1,7 @@
 package com.umc.umcTestProject.service;
 
 import com.umc.umcTestProject.domain.Post;
+import com.umc.umcTestProject.dto.PostAllListResponseDto;
 import com.umc.umcTestProject.dto.PostCreateRequestDto;
 import com.umc.umcTestProject.dto.PostResponseDto;
 import com.umc.umcTestProject.dto.PostUpdateRequestDto;
@@ -19,7 +20,7 @@ public class PostService {
 
 
     @Transactional
-    public Long createPost(Long id, PostCreateRequestDto postCreateRequestDto) {
+    public Long createPost(PostCreateRequestDto postCreateRequestDto) {
         return postRepository.save(postCreateRequestDto.toEntity()).getId();
     }
 
@@ -29,9 +30,12 @@ public class PostService {
         return new PostResponseDto(post);
     }
 
-    public List<PostResponseDto> findAllPosts() {
-        return postRepository.findAll().stream().map(post -> new PostResponseDto(post))
+    public PostAllListResponseDto findAllPosts() {
+        List<PostResponseDto> posts = postRepository.findAll().stream().map(post -> new PostResponseDto(post))
                 .collect(Collectors.toList());
+        return PostAllListResponseDto.builder()
+                .posts(posts)
+                .build();
     }
 
     @Transactional
