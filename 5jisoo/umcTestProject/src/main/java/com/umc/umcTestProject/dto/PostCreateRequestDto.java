@@ -3,8 +3,10 @@ package com.umc.umcTestProject.dto;
 import com.umc.umcTestProject.domain.Post;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class PostCreateRequestDto {
     private String title;
     private String content;
