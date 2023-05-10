@@ -1,8 +1,8 @@
 package com.umc.umcTestProject.service;
 
 import com.umc.umcTestProject.domain.Post;
-import com.umc.umcTestProject.dto.PostAllListResponseDto;
 import com.umc.umcTestProject.dto.PostCreateRequestDto;
+import com.umc.umcTestProject.dto.PostResponseDto;
 import com.umc.umcTestProject.dto.PostUpdateRequestDto;
 import com.umc.umcTestProject.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,14 @@ public class PostService {
         return postRepository.save(postCreateRequestDto.toEntity()).getId();
     }
 
-    public List<PostAllListResponseDto> findAllPosts() {
-        return postRepository.findAll().stream().map(post -> new PostAllListResponseDto(post))
+    public PostResponseDto findPostById(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("게시글이 존재하지 않습니다."));
+        return new PostResponseDto(post);
+    }
+
+    public List<PostResponseDto> findAllPosts() {
+        return postRepository.findAll().stream().map(post -> new PostResponseDto(post))
                 .collect(Collectors.toList());
     }
 
@@ -32,6 +38,7 @@ public class PostService {
     public Long updatePost(Long id, PostUpdateRequestDto postUpdateRequestDto) {
         Post findPost = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("게시글이 존재하지 않습니다."));
+        findPost.update(postUpdateRequestDto.getTitle(), postUpdateRequestDto.getContent());
         return id;
     }
 
